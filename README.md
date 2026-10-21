@@ -41,6 +41,11 @@ Keep originals at a sensible size (about 4000px on the long edge or less). Netli
 
 If nothing matches, both endpoints return 404 with the list of known tags.
 
+- `GET /api/stats` returns `{ visitors, downloads }`. The gallery footer shows these numbers.
+- `POST /api/stats?event=visit` or `?event=download` adds one and returns the new counts. The pages call it for you: each browser counts as one visitor (remembered in `localStorage`), and every click on a download button, including "Download all", counts as one download.
+
+The counts live in a Netlify Blobs store named `stats`. They are approximate: anyone can POST to the endpoint, a visitor who clears site data counts again, and photos saved by right-click or by opening the file URL directly are not counted. To reset them, delete the `visitors` and `downloads` entries under Blobs in the Netlify UI.
+
 ## Deploying to Netlify
 
 1. Push this repo to GitHub.
@@ -69,5 +74,5 @@ photos/                 your images (folders become tags)
 src/                    HTML, CSS and browser JavaScript, copied into dist/ as-is
 src/js/photos.js        tag filtering and shuffling, shared by pages and the API
 scripts/build.mjs       builds dist/ and the photo manifest
-netlify/functions/      /api/photos and /api/random
+netlify/functions/      /api/photos, /api/random and /api/stats
 ```

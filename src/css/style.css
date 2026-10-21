@@ -104,7 +104,8 @@ button { font: inherit; color: inherit; }
   position: absolute;
   left: var(--arc-x, 50%);
   top: var(--arc-y, 30%);
-  width: clamp(56px, 9vw, 120px);
+  --d: clamp(56px, 9vw, 120px);
+  width: var(--d);
   aspect-ratio: 1;
   translate: -50% -50%;
   border: 0;
@@ -115,11 +116,18 @@ button { font: inherit; color: inherit; }
               0 0 180px 60px color-mix(in oklab, var(--glow) 25%, transparent);
   cursor: pointer;
   animation: rise 2.4s var(--ease-out) both;
-  transition: background 1.2s, box-shadow 1.2s;
+  transition: background 1.2s, box-shadow 1.2s, filter 1.2s;
 }
+/* Crescent: a sky-coloured hole, 0.42 of the moon's diameter in radius, centred
+   0.3 of the diameter up and to the right. It crosses the rim, so the lit part
+   tapers to two points. Size is set in px from --d, because % stops in a circle
+   gradient measure against the farthest corner, not the moon. drop-shadow
+   follows the lit part; box-shadow would draw a full disk. */
 [data-sky="night"] .sun {
-  background: radial-gradient(circle at 62% 40%, transparent 0 34%, var(--sun) 35%);
-  box-shadow: 0 0 50px 6px color-mix(in oklab, var(--glow) 35%, transparent);
+  --r: calc(var(--d) * 0.42);
+  background: radial-gradient(circle var(--r) at 76% 35%, transparent calc(var(--r) - 0.5px), var(--sun) calc(var(--r) + 0.5px));
+  box-shadow: none;
+  filter: drop-shadow(0 0 14px color-mix(in oklab, var(--glow) 60%, transparent));
 }
 @keyframes rise { from { translate: -50% 120%; opacity: 0; } }
 

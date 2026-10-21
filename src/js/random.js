@@ -1,6 +1,8 @@
 // /random?tag=snow — one photo at a time, opened with a shutter iris.
 import { describe, filterByTag, shuffle } from "./photos.js";
-import { loadManifest, preload, screenWidth } from "./common.js";
+import { countVisit, loadManifest, preload, screenWidth } from "./common.js";
+
+countVisit();
 
 const stage = document.querySelector("#stage");
 const title = document.querySelector("#title");

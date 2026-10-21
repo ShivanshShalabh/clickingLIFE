@@ -1,6 +1,8 @@
 // /slideshow?tag=snow,sunset&interval=8&fit=cover&zoom=off
 import { describe, filterByTag, shuffle } from "./photos.js";
-import { loadManifest, preload, screenWidth } from "./common.js";
+import { countVisit, loadManifest, preload, screenWidth } from "./common.js";
+
+countVisit();
 
 const $ = (s) => document.querySelector(s);
 const params = new URLSearchParams(location.search);

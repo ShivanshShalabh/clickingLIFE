@@ -1,5 +1,5 @@
 import { describe, filterByTag, shuffle, tagCounts } from "./photos.js";
-import { loadManifest, preload, screenWidth, setImage } from "./common.js";
+import { countVisit, loadManifest, preload, screenWidth, setImage } from "./common.js";
 import { mountSun } from "./sky.js";
 
 const $ = (s) => document.querySelector(s);
@@ -14,6 +14,13 @@ let shown = [];
 let current = 0;
 
 mountSun($(".sun"));
+
+countVisit().then((stats) => {
+  if (!stats) return;
+  const n = (count, word) => `${count.toLocaleString()} ${word}${count === 1 ? "" : "s"}`;
+  $("#stats").textContent = `${n(stats.visitors, "visitor")} · ${n(stats.downloads, "download")}`;
+  $("#stats").hidden = false;
+});
 
 const esc = (s) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 const tagFromUrl = () => new URLSearchParams(location.search).get("tag") || "";
