@@ -100,6 +100,20 @@ button { font: inherit; color: inherit; }
   pointer-events: none;
 }
 
+/* gallery-placard credit, top-left, fades in after the sun rises */
+.byline {
+  position: absolute;
+  top: var(--gutter);
+  left: var(--gutter);
+  margin: 0;
+  font: 500 0.72rem/1 var(--text);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  animation: develop 1.6s 1.2s var(--ease-out) both;
+}
+.byline span { color: var(--ink); }
+
 .sun {
   position: absolute;
   left: var(--arc-x, 50%);
